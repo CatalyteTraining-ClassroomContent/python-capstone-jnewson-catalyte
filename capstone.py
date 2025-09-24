@@ -165,38 +165,25 @@ def get_average_score(list_of_submission_objects):
     return round(average_score, 1)  
 
 
+
 def get_average_score_by_module(list_of_submission_objects):
     """
     returns a key for each subject using the subject name 
-    then give the average of that course
+    then gives the average of that course based on student quizscores 
     """
     module_scores = {}
 
     for submission in list_of_submission_objects:
-        module_name = submission["quizModule"]  
-        score = submission["quizScore"]  
+        module_name = submission["quizModule"]
+        score = submission["quizScore"]
 
         if module_name not in module_scores:
-            module_scores[module_name] = [score]
-        else:
-            module_scores[module_name].append(score)
+            module_scores[module_name] = []
+        module_scores[module_name].append(score)
 
     module_averages = {}
-
-    for module_name in module_scores:
-        scores = module_scores[module_name]  
-        total = 0
-        count = 0
-
-        
-        for score in scores:
-            total += score
-            count += 1
-
-        average = total / count
-
-        average = round(average, 1)
-
-        module_averages[module_name] = average
+    for module_name, scores in module_scores.items():
+        temp_submissions = [{"quizScore": s} for s in scores]
+        module_averages[module_name] = get_average_score(temp_submissions)
 
     return module_averages
