@@ -91,6 +91,12 @@ list_of_submissions = [
 
 
 def filter_by_date(submissionDate, list_of_submissions):
+    """
+    filters submission of students quizzes. 
+    params are date they submitted using list_of_submission dict 
+    if no results return empty list 
+    search submissions in dict, if true add to submission list and return that list
+    """
     results = []
     for submission in list_of_submissions:
         if submission["submissionDate"] == submissionDate:
@@ -101,6 +107,11 @@ def filter_by_date(submissionDate, list_of_submissions):
         return []            
 
 def filter_by_student_id(studentid, list_of_submissions):
+    """
+    filter results based on studentid we want to search individual students submissions 
+    if no results return empty list 
+    create and return submission list if studentid is correct and they have submitted quizzes 
+    """
     results = [] 
     for submission in list_of_submissions:  
         if submission["studentId"] == studentid:  
@@ -112,6 +123,12 @@ def filter_by_student_id(studentid, list_of_submissions):
 
 
 def find_unsubmitted(date, list_of_student_names, list_of_submission_objects):
+    """
+    find unsubmitted work using 
+    params: date, dict, and submission list 
+    return empty list if no results 
+    if there are create a list of the unsubmitted with their name and the due date 
+    """
     results = []
 
     for student in list_of_student_names:
@@ -130,6 +147,13 @@ def find_unsubmitted(date, list_of_student_names, list_of_submission_objects):
 
 
 def get_average_score(list_of_submission_objects):
+    """
+    get the average score of all the quizzes 
+    param: submission list 
+    start from 0 
+    add submissions quizscores until finished 
+    return a average with 1 decimal point 
+    """
     total = 0
     count = 0
 
@@ -142,7 +166,10 @@ def get_average_score(list_of_submission_objects):
 
 
 def get_average_score_by_module(list_of_submission_objects):
-
+    """
+    returns a key for each subject using the subject name 
+    then give the average of that course
+    """
     module_scores = {}
 
     for submission in list_of_submission_objects:
